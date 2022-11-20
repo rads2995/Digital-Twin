@@ -17,8 +17,10 @@ RUN git clone --recursive https://gem5.googlesource.com/public/gem5 -b stable
 COPY configs/ gem5/configs/
 
 # Build gem5 for valid ISA
-RUN if [ "$ISA" = "X86" ] ; \
-then cd gem5/ && python3 `which scons` build/X86/gem5.opt -j $(($(nproc) + 1)) ; \
-elseif [ "$ISA" = "ARM" ] ; \ 
-then cd gem5/ && python3 `which scons` build/ARM/gem5.opt -j $(($(nproc) + 1)) ; \
-else echo "Invalid argument for Instruction Set Architecture (ISA). Try docker build -t cool_name . --build-arg ISA=X86." ; fi
+RUN if [ "$ISA" = "X86" ]; then \
+        cd gem5/ && python3 `which scons` build/X86/gem5.opt -j $(($(nproc) + 1)) ; \
+    elif [ "$ISA" = "ARM" ]; then \ 
+        cd gem5/ && python3 `which scons` build/ARM/gem5.opt -j $(($(nproc) + 1)) ; \
+    else \
+        echo "Invalid argument for Instruction Set Architecture (ISA). Try docker build -t cool_name . --build-arg ISA=X86." ; \
+    fi
