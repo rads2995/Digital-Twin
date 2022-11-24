@@ -47,5 +47,3 @@ exit_event = m5.simulate()
 
 print('Exiting @ tick {} because {}'
       .format(m5.curTick(), exit_event.getCause()))
-
-      
