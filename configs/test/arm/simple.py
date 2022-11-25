@@ -45,7 +45,7 @@ system = System()
 
 # Set the clock frequency of the system (and all of its children)
 system.clk_domain = SrcClockDomain()
-system.clk_domain.clock = '1GHz'
+system.clk_domain.clock = '4GHz'
 system.clk_domain.voltage_domain = VoltageDomain()
 
 # Set up the system
@@ -64,13 +64,6 @@ system.cpu.dcache_port = system.membus.cpu_side_ports
 
 # create the interrupt controller for the CPU and connect to the membus
 system.cpu.createInterruptController()
-
-# For x86 only, make sure the interrupts are connected to the memory
-# Note: these are directly connected to the memory bus and are not cached
-if m5.defines.buildEnv['TARGET_ISA'] == "x86":
-    system.cpu.interrupts[0].pio = system.membus.mem_side_ports
-    system.cpu.interrupts[0].int_requestor = system.membus.cpu_side_ports
-    system.cpu.interrupts[0].int_responder = system.membus.mem_side_ports
 
 # Create a DDR3 memory controller and connect it to the membus
 system.mem_ctrl = MemCtrl()

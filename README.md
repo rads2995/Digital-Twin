@@ -1,11 +1,24 @@
 # Digital-Twin
 
-To build the Docker image with x86 ISA: `docker build --rm -t digital_twin . --build-arg ISA=X86`
+## Build Instructions
 
-To run the Docker container: `docker run -it digital_twin`
+To build the Docker image:
 
-### Example of x86 simulation calling hello world binary file
+`docker build --force-rm -t digital_twin . --build-arg ISA=[model]`
 
+where `[model]:` is either `X86`, or `ARM`.
+
+To run the Docker container interactively: 
+
+`docker run --rm -it  digital_twin:latest`
+
+To run the simulator system (i.e., x86 ISA):
+
+`build/X86/gem5.opt configs/test/arm/simple.py`
+
+## Simulation Examples
+
+### x86 ISA calling "hello world" binary file
 ```
 root@309b55121ae6:/Digital-Twin/gem5# build/X86/gem5.opt configs/test/x86/simple.py 
 gem5 Simulator System.  https://www.gem5.org
